@@ -1,7 +1,7 @@
-# gamera
+# Gamera
 
-Repo for our three.js game! Requirements pending...
+It's our three.js game!
 
-## Here's a picture
+Other information and details are pending, so here's a picture...
 
 ![gamera](http://vignette1.wikia.nocookie.net/godzilla/images/e/e2/Gamera.png/revision/latest?cb=20140228200537)
