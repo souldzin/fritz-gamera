@@ -5,5 +5,4 @@
 
 export interface IComponent {
     [key: string]: any;
-    __componentName: string;
 }

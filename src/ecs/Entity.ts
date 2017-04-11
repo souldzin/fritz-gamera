@@ -1,18 +1,26 @@
-import {IEntity} from "./IEntity";
 import {IComponent} from "./IComponent";
+import {ICtor} from "./../utilities/ICtor";
 
-export class Entity implements IEntity {
-    private components: {[key: string]: IComponent}
+interface IComponentDictionary {
+    [key: string]: IComponent
+}
 
-    add = (component: IComponent) => {
-        this.components[component.__componentName] = component;
+export class Entity {
+    public components: IComponentDictionary = {};
+
+    constructor(components?: Array<IComponent>) {
+        components.forEach(this.add);
     }
 
-    remove = (component: IComponent) => {
-        delete this.components[component.__componentName];
+    add = <T extends IComponent>(component: IComponent) => {
+        this.components[component.constructor.name] = component;
     }
 
-    get = <T>(componentName: string) => {
-        return this.components[componentName];
+    remove = <T extends IComponent>(componentClass: ICtor<T>) => {
+        delete this.components[componentClass.name];
+    }
+
+    get = <T extends IComponent>(componentClass: ICtor<T>) => {
+        return this.components[componentClass.name];
     }
 }

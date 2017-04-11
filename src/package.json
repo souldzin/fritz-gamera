@@ -3,6 +3,8 @@
     "version": "0.0.0-development",
     "dependencies": {
         "three": "0.84.0",
-        "@types/three": "0.84.3"
+        "rxjs": "5.3.0",
+        "@types/three": "0.84.3",
+        "@types/rx": "4.1.1"
     }
 }
