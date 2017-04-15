@@ -1,33 +1,26 @@
 import {Entity} from "./Entity";
 import {ISystem} from "./ISystem";
+import {EntityStore} from "./data/EntityStore";
+import {SystemStore} from "./data/SystemStore";
 
 export class SystemManager {
-    private entities: {[key: string]: Entity};
-    private systems: {[key: string]: ISystem};
+    private systemStore: SystemStore;
+    private entityStore: EntityStore;
+
     public isUpdating: boolean;
+
+    constructor(entityStore: EntityStore, systemStore: SystemStore) {
+        this.entityStore = entityStore;
+        this.systemStore = systemStore;
+    }
 
     update = (time: number) => {
         this.isUpdating = true;
         
-        Object.keys(this.systems).forEach(key => 
-            this.systems[key].update(time));
+        const systems = this.systemStore.getSystems();
+        Object.keys(systems).forEach(key => 
+            systems[key].update(time));
 
         this.isUpdating = false;
-    }
-
-    addEntity = (entity: Entity, name: string) => {
-        this.entities[name] = entity;
-    }
-
-    removeEntity = (name: string) => {
-        delete this.entities[name];
-    }
-
-    addSystem = (system: ISystem) => {
-        this.systems[system.constructor.name] = system;
-    }
-
-    removeSystem = (system: ISystem) => {
-        delete this.systems[system.constructor.name];
-    }    
+    } 
 }

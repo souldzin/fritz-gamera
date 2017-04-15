@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import {GameScene} from './GameScene';
 import {Entity} from "./Entity";
 import {Component} from "./Component"; 
 
@@ -26,6 +27,36 @@ class CubeComponent extends Component {
         this.mesh.rotateX(.5 * delta);
         this.mesh.rotateY(.5 * delta);
     }
+}
+
+class PlayCubeScene extends GameScene  {
+    constructor() {
+        super();
+    }
+
+    AddEntities = () => {
+        this.
+    }
+
+
+
+    private createLights = () => {
+        // These should be components and wrapped in entities. Not doing this here for the sake of simplicity.
+        const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9)
+
+        const ambientLight = new THREE.AmbientLight(0xdc8874, .5);
+
+        const shadowLight = new THREE.DirectionalLight(0xffffff, .9);
+        shadowLight.position.set(150, 350, 350);
+        shadowLight.castShadow = true;
+        shadowLight.shadow.mapSize.width = 4096;
+        shadowLight.shadow.mapSize.height = 4096;
+
+        this.scene.add(hemisphereLight);
+        this.scene.add(shadowLight);
+        this.scene.add(ambientLight);
+    };
+
 }
 
 export default class Game {
@@ -57,10 +88,20 @@ export default class Game {
         this.entities.forEach(x => x.registerWithScene(this.scene));
     }
 
+    animate = () => {
+        requestAnimationFrame(this.animate);
+
+        this.clock.getDelta();
+
+        while(this.frameDelta += MAX_FPS) {
+
+        }
+    }
+
     private handleWindowResize = () => {
         this.renderer.setSize(this.getWidth(), this.getHeight());
     }
-    
+
     // Sample Code
     private createSampleEntity = () => {
         const entity = new Entity(new THREE.Vector3(0, 0, 0), 0, 1, true);
