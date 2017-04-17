@@ -4,8 +4,21 @@ export class EntityStore {
     private componentEntityLookup: {[componentKey: string]: Array<string>}
     private entities: {[key: string]: Entity};
 
+    constructor() {
+        this.entities = {};
+        this.componentEntityLookup = {};        
+    }
+
     getEntities = () => {
         return this.entities;
+    }
+
+    getComponentEntityLookup = () => {
+        return this.componentEntityLookup;
+    }
+
+    getEntityCount = () => {
+        return Object.keys(this.entities).length;
     }
 
     addEntity = (entity: Entity, id: string) => {
@@ -50,6 +63,9 @@ export class EntityStore {
             return;
         } else {
             this.componentEntityLookup[componentId] = this.componentEntityLookup[componentId].filter(x => x !== entityId);
+            if(!this.componentEntityLookup[componentId].length) {
+                delete this.componentEntityLookup[componentId];
+            }
         }
     }
 }

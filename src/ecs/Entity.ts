@@ -1,6 +1,6 @@
 import {IComponent} from "./IComponent";
 import {ICtor} from "./../utilities/ICtor";
-import {Observable, Subject} from "rx";
+import {Observable, Subject} from "rxjs";
 
 interface IComponentDictionary {
     [key: string]: IComponent
@@ -15,19 +15,21 @@ export class Entity {
     public componentRemovedObservable: Observable<{id: string}> = this.componentRemovedSubject.asObservable();   
 
     constructor(components?: Array<IComponent>) {
-        components.forEach(this.add);
+        if(components) {
+            components.forEach(this.add);
+        }        
     }
 
     add = <T extends IComponent>(component: IComponent) => {
         const id = component.constructor.name;
         this.components[id] = component;
-        this.componentAddedSubject.onNext({id, component});
+        this.componentAddedSubject.next({id, component});
     }
 
     remove = <T extends IComponent>(componentClass: ICtor<T>) => {
         const id = componentClass.name;
         delete this.components[id];
-        this.componentRemovedSubject.onNext({id})
+        this.componentRemovedSubject.next({id})
     }
 
     get = <T extends IComponent>(componentClass: ICtor<T>) => {
