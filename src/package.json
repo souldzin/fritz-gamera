@@ -1,8 +1,0 @@
-{
-    "name": "fritz-game-engine",
-    "version": "0.0.0-development",
-    "dependencies": {
-        "three": "0.84.0",
-        "@types/three": "0.84.3"
-    }
-}
