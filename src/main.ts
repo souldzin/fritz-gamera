@@ -1,5 +1,14 @@
 import PlayCubes from "./play-cubes";
-import {Component, Entity} from "./ecs";
+import {NamedComponent, Component, Entity} from "./ecs";
+
+@NamedComponent("woah, that worked!")
+class TestPosition {
+    constructor(val: string) {
+        this.val = val;
+    }
+
+    val: string;
+}
 
 @Component
 class Position {
@@ -15,7 +24,8 @@ class Position {
 }
 
 var testEntity = new Entity()
-    .add(new Position(0, 0, 0));
+    .add(new Position(0, 0, 0))
+    .add(new TestPosition("Woah!"));
 
 console.log(testEntity.has(Position));
 console.log(testEntity);

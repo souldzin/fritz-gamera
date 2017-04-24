@@ -1,2 +1,2 @@
-export {Component} from "./Component";
+export {Component, NamedComponent} from "./Component";
 export {Entity} from "./Entity";
