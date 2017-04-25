@@ -3,8 +3,7 @@ import {createGuid} from "./../utilities/guid";
 export type ComponentIdentifier = IComponent | Function;
 
 export interface IComponent {
-    __id: string; 
-    __name: string;
+    __id: string;
 }
 
 export const Component = <T extends Function>(ctor: T): T => 

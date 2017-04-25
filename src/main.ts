@@ -1,34 +1,44 @@
-import PlayCubes from "./play-cubes";
-import {NamedComponent, Component, Entity} from "./ecs";
+import {Entity, EntityStore, Engine} from "./ecs";
 
-@NamedComponent("woah, that worked!")
-class TestPosition {
-    constructor(val: string) {
-        this.val = val;
-    }
+// Import Components
+import {Position} from "./components/PositionComponent";
+import {TestComponent} from "./components/TestComponent";
 
-    val: string;
-}
+// Import Systems
+import {PositionSystem} from "./systems/PositionSystem";
+import {TestComponentSystem} from "./systems/TestComponentSystem";
 
-@Component
-class Position {
-    constructor(x: number, y: number,z: number) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
+const entityStore = new EntityStore();
+const gameEngine = new Engine(entityStore);
 
-    x: number;
-    y: number;
-    z: number;
-}
-
-var testEntity = new Entity()
+var testEntity1 = new Entity()
     .add(new Position(0, 0, 0))
-    .add(new TestPosition("Woah!"));
+    .add(new TestComponent("Woah!"));
 
-console.log(testEntity.has(Position));
-console.log(testEntity);
+var testEntity2 = new Entity()
+    .add(new Position(1, 1, 1));
+
+entityStore
+    .add(testEntity1)
+    .add(testEntity2);
+
+const positionSystem = new PositionSystem();
+const testComponentSystem = new TestComponentSystem();
+
+gameEngine
+    .addSystem(positionSystem)
+    .addSystem(testComponentSystem);
+
+gameEngine.update();
+
+// const gameLoop = () => {
+//     setTimeout(() => {
+//         gameEngine.update();
+//         gameLoop();
+//     }, 10000);
+// } 
+
+// gameLoop();
 
 // const game = new PlayCubes();
 // game.start();
