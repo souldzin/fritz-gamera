@@ -1,9 +1,25 @@
+import {Subject} from "rxjs";
+import {createGuid} from "./../utilities/guid";
 import {IComponent, ComponentIdentifier, getComponentIdentifier} from "./Component";
 
 export class Entity {
-    private _guid: string; 
+    private _id: string;
     private _tag: string;
     private _components: {[key: string]: IComponent} = {};
+    private _entityUpdatedSubject = new Subject<Entity>();
+
+    public get id() { return this._id; }
+    public get components() { return this._components; }
+
+    constructor(...components: Array<any>) {
+        this._id = createGuid();
+
+        if(components.length) {
+            this.add(...components);
+        }        
+    }
+
+    public entityUpdatedObservable = this._entityUpdatedSubject.asObservable();
 
     public add = (...components: Array<any>) => {
         components.forEach(component => {
@@ -11,6 +27,7 @@ export class Entity {
             this._components[id] = component;
         });
 
+        this._entityUpdatedSubject.next(this);
         return this;
     }
 
