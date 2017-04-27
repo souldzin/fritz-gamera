@@ -3,7 +3,11 @@
   "version": "0.0.0-development",
   "license": "ISC",
   "scripts": {
-    "test": "mocha -r ts-node/register src/**/*.test.ts"
+    "test": "mocha -r ts-node/register src/**/*.test.ts",
+    "test:watch": "onchange 'src/**/*.ts' -- npm test",
+    "build": "gulp :rebuild",
+    "clean": "gulp :clean",
+    "dev": "gulp :watch"
   },
   "dependencies": {
     "three": "0.84.0",
@@ -20,6 +24,7 @@
     "gulp-util": "^3.0.8",
     "gulp-watch": "^4.3.11",
     "mocha": "3.2.0",
+    "onchange": "^3.2.1",
     "run-sequence": "^1.2.2",
     "ts-loader": "^2.0.0",
     "ts-node": "^2.1.0",
