@@ -3,9 +3,6 @@
   "version": "0.0.0-development",
   "license": "ISC",
   "scripts": {
-    "dev": "webpack-dev-server --open --config webpack.config.dev.ts",
-    "build:dev": "webpack --config webpack.config.dev.ts",
-    "build:prod": "webpack --config webpack.config.production.ts",
     "test": "mocha -r ts-node/register src/**/*.test.ts"
   },
   "dependencies": {
