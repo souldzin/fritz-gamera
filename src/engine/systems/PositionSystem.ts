@@ -5,7 +5,7 @@ interface PositionSystemEntity {
     position: Position;
 }
 
-const PositionSystemAspect = 
+const PositionSystemAspect =
     new Aspect()
         .all(Position);
 
