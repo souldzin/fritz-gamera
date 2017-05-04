@@ -3,7 +3,7 @@
   "version": "0.0.0-development",
   "license": "ISC",
   "scripts": {
-    "test": "mocha -r ts-node/register src/**/*.test.ts",
+    "test": "mocha \"src/**/*.test.ts\" --compilers ts:ts-node/register -r tsconfig-paths/register",
     "test:watch": "onchange 'src/**/*.ts' -- npm test",
     "build": "gulp :rebuild",
     "clean": "gulp :clean",
@@ -29,6 +29,7 @@
     "run-sequence": "^1.2.2",
     "ts-loader": "^2.0.0",
     "ts-node": "^2.1.0",
+    "tsconfig-paths": "^2.1.2",
     "tsify": "^3.0.1",
     "typescript": "^2.2.2",
     "vinyl-source-stream": "^1.1.0",

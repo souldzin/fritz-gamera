@@ -1,4 +1,4 @@
-import * as Game from "experiment-play-cubes/play-cubes";
+import PlayCubes from "./experiment-play-cubes/play-cubes";
 
-var g = new Game();
-g.start();
+const game = new PlayCubes();
+game.start();
