@@ -1,50 +1,47 @@
-import {Subject} from "rxjs";
-import {createGuid} from "./../utilities/guid";
-import {IComponent, ComponentIdentifier, getComponentIdentifier} from "./Component";
+type EntityViewDefinition = {[prop: string]: any};
+type Component = any;
+type Ctor<T> = {new (...args: any[]):T};
 
-export class Entity {
-    private _id: string;
-    private _tag: string;
-    private _components: {[key: string]: IComponent} = {};
-    private _entityUpdatedSubject = new Subject<Entity>();
+class Entity {
+    private readonly _id: string;
+    private readonly _components: Component[];
 
-    public get id() { return this._id; }
-    public get components() { return this._components; }
+    constructor(id: string, components?: Component[]) {
+        this._id = id;
+        this._components = [];
 
-    constructor(...components: Array<any>) {
-        this._id = createGuid();
-
-        if(components.length) {
-            this.add(...components);
-        }        
+        this.addComponents(components);
     }
 
-    public entityUpdatedObservable = this._entityUpdatedSubject.asObservable();
+    public id() { 
+        return this._id; 
+    }
 
-    public add = (...components: Array<any>) => {
-        components.forEach(component => {
-            let id = component["__id"];
-            this._components[id] = component;
-        });
+    public components() { 
+        return this._components; 
+    }
 
-        this._entityUpdatedSubject.next(this);
+    public add = (component: Component) => {
+        return this.addComponents([component]);
+    }
+
+    public addComponents = (components?: Component[]) => {
+        if(!components) {
+            return this;
+        }
+
+        Array.prototype.push.apply(this._components, components);
+
         return this;
     }
 
-    public remove = <T extends IComponent>(component: {new(): T} | ComponentIdentifier) => {
-        const componentId = getComponentIdentifier(component);
-        delete this._components[componentId];
-
-        return this;
-    }
-
-    public get<T>(component: {new(): T} | ComponentIdentifier): T {
-        const componentId = getComponentIdentifier(component);
-        return this._components[componentId] as any as T;
-    }
-
-    public has<T>(component: {new(): T} | ComponentIdentifier): boolean {
-        const componentId = getComponentIdentifier(component);
-        return !!this._components[componentId];
+    public getComponent = <T>(ctor : Ctor<T>) => {
+        var comp =  this._components
+            .filter(x => x instanceof ctor)
+            .map(x => <T>x);
+        
+        return comp.length ? comp[0] : null;
     }
 }
+
+export {Entity};

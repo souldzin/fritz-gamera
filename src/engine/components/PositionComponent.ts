@@ -1,7 +1,7 @@
-import {Component} from "./../ecs";
+import {Component} from "../ecs";
 
 @Component
-export class Position {
+class PositionComponent {
     constructor(x: number, y: number,z: number) {
         this.x = x;
         this.y = y;
@@ -12,3 +12,5 @@ export class Position {
     y: number;
     z: number;
 }
+
+export {PositionComponent};

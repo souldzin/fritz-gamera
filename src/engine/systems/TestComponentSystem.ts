@@ -1,4 +1,4 @@
-import {ISystem, Aspect, Entity} from "./../ecs";
+import {System, Aspect, Entity} from "./../ecs";
 import {TestComponent} from "./../components/TestComponent";
 
 interface TestComponentSystemEntity {
@@ -9,25 +9,23 @@ const TestComponentSystemAspect =
     new Aspect()
         .all(TestComponent);
 
-export class TestComponentSystem implements ISystem<TestComponentSystemEntity> {
-    aspect = TestComponentSystemAspect;
-
-    entityProjection = (entity: Entity): TestComponentSystemEntity => {
-        const testComponent = entity.get(TestComponent);
+export class TestComponentSystem implements System {
+    private entityProjection = (entity: Entity): TestComponentSystemEntity => {
+        const testComponent = entity.getComponent(TestComponent);
         return {
             prop: testComponent
         }
     }
 
-    onStart = () => {
-
+    public update = (tick: Number, entities: Entity[]) => {
+        return entities
+            .filter(TestComponentSystemAspect.check)
+            .map(this.entityProjection)
+            .forEach(this.updateEntity.bind(this, tick));
+        
     }
 
-    onUpdate = (entity: TestComponentSystemEntity) => {
+    private updateEntity = (tick: Number, entity: TestComponentSystemEntity) => {
         console.log("processing entity in test component system", entity);
-    }
-
-    onEnd = () => {
-
     }
 }

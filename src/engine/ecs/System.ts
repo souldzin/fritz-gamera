@@ -1,10 +1,10 @@
 import {Aspect} from "./Aspect";
 import {Entity} from "./Entity";
 
-export interface ISystem<T> {
-    aspect: Aspect;
-    entityProjection: (entity: Entity) => T;
-    onStart: () => void;
-    onUpdate: (entity: T) => void;
-    onEnd: () => void;
+export interface System {
+    update: (tick : Number, entities: Array<Entity>) => void;
+}
+
+export class SystemStub implements System {
+    update: (tick: Number, entities: Array<Entity>) => {};
 }

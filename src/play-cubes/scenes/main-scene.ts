@@ -1,7 +1,7 @@
-import Scene from "@fritz/engine/scene";
+import { Scene, Entity, RenderComponent } from "@fritz/engine";
 
-function createMainScene():Scene {
-    return new Scene();
+function build():Scene {
+    return new Scene([], [new Entity("1", [new RenderComponent()])]);
 }
 
-export default createMainScene;
+export { build };

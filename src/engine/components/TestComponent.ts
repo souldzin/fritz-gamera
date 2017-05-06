@@ -1,10 +1,12 @@
-import {NamedComponent} from "./../ecs";
+import {NamedComponent} from "../ecs";
 
 @NamedComponent("woah, that worked!")
-export class TestComponent {
+class TestComponent {
     constructor(val: string) {
         this.val = val;
     }
 
     val: string;
 }
+
+export {TestComponent};

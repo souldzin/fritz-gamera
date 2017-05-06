@@ -1,34 +1,31 @@
-import {ISystem, Aspect, Entity} from "./../ecs";
-import {Position} from "./../components/PositionComponent";
+import {System, Aspect, Entity} from "../ecs";
+import {PositionComponent} from "../components";
 
 interface PositionSystemEntity {
-    position: Position;
+    position: PositionComponent;
 }
 
 const PositionSystemAspect =
     new Aspect()
-        .all(Position);
+        .all(PositionComponent);
 
-export class PositionSystem implements ISystem<PositionSystemEntity> {
-    aspect = PositionSystemAspect;
-
-    entityProjection = (entity: Entity): PositionSystemEntity => {
-        const position = entity.get(Position);
-        return {
-            position: position
-        }
+export class PositionSystem implements System {
+    private entityProjection = (entity: Entity): PositionSystemEntity => {
+        const position = entity.getComponent(PositionComponent);
+        return { 
+            position: position 
+        };
     }
 
-    onStart = () => {
-
+    public update = (tick: Number, entities: Entity[]) => {
+        var posEntities = entities
+            .filter(PositionSystemAspect.check)
+            .map(this.entityProjection)
+            .forEach(this.updateEntity.bind(this, tick));
     }
 
-    onUpdate = (entity: PositionSystemEntity) => {
+    private updateEntity = (tick: Number, entity: PositionSystemEntity) => {
         entity.position.x = entity.position.x + 1;
         console.log("processing entity in position system", entity.position.x);
-    }
-
-    onEnd = () => {
-
     }
 }

@@ -1,0 +1,5 @@
+class RenderComponent {
+
+}
+
+export {RenderComponent};
