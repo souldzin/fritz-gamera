@@ -1,0 +1,5 @@
+class VelocityComponent {
+
+}
+
+export {VelocityComponent};

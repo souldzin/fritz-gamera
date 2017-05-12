@@ -1,0 +1,5 @@
+class CameraComponent {
+
+}
+
+export {CameraComponent};
