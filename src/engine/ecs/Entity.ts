@@ -35,7 +35,7 @@ class Entity {
         return this;
     }
 
-    public getComponent = <T>(ctor : Ctor<T>) => {
+    public getComponent = <T extends Component>(ctor : Ctor<T>) => {
         var comp =  this._components
             .filter(x => x instanceof ctor)
             .map(x => <T>x);
