@@ -1,0 +1,5 @@
+class MeshComponent {
+
+}
+
+export {MeshComponent};

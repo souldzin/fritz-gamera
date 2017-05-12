@@ -1,0 +1,5 @@
+class PositionComponent {
+
+}
+
+export {PositionComponent};

@@ -15,7 +15,10 @@ describe("engine/scene", function(){
     beforeEach(function(){
         system = new SystemStub();
         entity = new Entity("1", [{ power: 9001 }]);
-        scene = new Scene([system], [entity]);
+        scene = new Scene({
+            systems: [system],
+            entities: [entity]
+        });
     });
 
     describe(".ctor", function(){
