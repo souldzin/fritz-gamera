@@ -22,7 +22,7 @@ export class EntityStore {
         entities.forEach(this.add);
 
     public add = (entity: Entity) => {
-        const {id} = entity;
+        const id = entity.id();
 
         // If entity is already in store, don't bother.
         if (this._entities[id]) {return;}
@@ -42,7 +42,7 @@ export class EntityStore {
         if (typeof entity === "string") {
             id = entity;
         } else {
-            id = entity.id;
+            id = entity.id();
         }
 
         entity = this._entities[id];

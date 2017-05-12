@@ -2,6 +2,7 @@ import {createGuid} from "./../utilities/guid";
 
 export type ComponentIdentifier = IComponent | Function;
 
+// note: don't think __id is needed???
 export interface IComponent {
     __id: string;
 }

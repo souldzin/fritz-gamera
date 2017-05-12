@@ -15,15 +15,10 @@ export class EntityLookup {
 
         store.entityAddedObservable.subscribe(this.checkEntity);
         store.entityRemovedObservable.subscribe(this.remove);
-
-        //Process existing entities
-        store.entities.forEach(entity => {
-            entity.entityUpdatedObservable.subscribe(this.checkEntity);
-        });
     }
 
     private add = (entity: Entity) => {
-        const {id} = entity;
+        const id = entity.id();
 
         if(id in this._ids) return;
 
@@ -31,7 +26,7 @@ export class EntityLookup {
     }
 
     private remove = (entity: Entity) => {
-        const {id} = entity;
+        const id = entity.id();
 
         let index = this._ids.indexOf(id);
         if(index === -1) return;
