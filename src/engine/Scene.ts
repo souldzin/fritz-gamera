@@ -1,16 +1,23 @@
 import {System, Entity} from "./ecs";
 import {createGuid} from "./utilities/guid";
 
+interface ISceneOptions {
+    systems?: Array<System>;
+    entities?: Array<Entity>;
+}
+
 class Scene {
     private readonly _entities : Array<Entity>;
     private readonly _systems : Array<System>;
 
-    constructor(systems : Array<System>, entities : Array<Entity>) {
+    constructor(options?: ISceneOptions) {
         this._entities = [];
         this._systems = [];
 
-        this.addEntities(entities);
-        this.addSystems(systems);
+        if(options) {
+            this.addEntities(options.entities);
+            this.addSystems(options.systems);
+        }
     }
 
     public entities = () => {
