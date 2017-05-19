@@ -9,7 +9,7 @@ import {TestComponent} from "./components/TestComponent";
 import {PositionSystem} from "./systems/PositionSystem";
 import {TestComponentSystem} from "./systems/TestComponentSystem";
 
-const scene = new Scene([], []);
+const scene = new Scene();
 
 var testEntity1 = new Entity("A")
     .add(new PositionComponent(0, 0, 0))
